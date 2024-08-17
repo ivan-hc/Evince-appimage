@@ -148,7 +148,7 @@ function _set_locale() {
 
 function _add_launcher_and_icon() {
 	rm -R -f ./*.desktop
-	LAUNCHER=$(grep -iRl $BIN ./.junest/usr/share/applications/* | grep ".desktop" | head -1)
+	LAUNCHER=$(grep -iRl $BIN ./.junest/usr/share/applications/* | grep ".desktop" | grep -vi "preview" | head -1)
 	cp -r "$LAUNCHER" ./
 	ICON=$(cat $LAUNCHER | grep "Icon=" | cut -c 6-)
 	cp -r ./.junest/usr/share/icons/*"$ICON"* ./ 2>/dev/null
