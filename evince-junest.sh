@@ -30,9 +30,14 @@ mountpoint_dirs=""
 # Post-installation processes (add whatever you want)
 _post_installation_processes() {
 	printf "\n◆ User's processes: \n\n"
-	rm -f AppDir/*.desktop
+	rm -f AppDir/*.desktop AppDir/*.png
 	LAUNCHER=$(grep -iRl "$BIN" archlinux/.junest/usr/share/applications/* | grep ".desktop" | grep -vi "preview" | head -1)
 	cp -r "$LAUNCHER" AppDir/
+	ICON=$(cat "$LAUNCHER" | grep "Icon=" | cut -c 6-)
+	hicolor_dirs="22x22 24x24 32x32 48x4 64x64 128x128 192x192 256x256 512x512 scalable"
+	for i in $hicolor_dirs; do
+		cp -r archlinux/.junest/usr/share/icons/hicolor/"$i"/apps/*"$ICON"* AppDir/ 2>/dev/null
+	done
 }
 
 ##########################################################################################################################################################
