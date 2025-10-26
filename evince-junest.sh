@@ -30,8 +30,9 @@ mountpoint_dirs=""
 # Post-installation processes (add whatever you want)
 _post_installation_processes() {
 	printf "\n◆ User's processes: \n\n"
-	echo " - None"
-	# Add here your code
+	rm -f AppDir/*.desktop
+	LAUNCHER=$(grep -iRl "$BIN" archlinux/.junest/usr/share/applications/* | grep ".desktop" | grep -vi "preview" | head -1)
+	cp -r "$LAUNCHER" AppDir/
 }
 
 ##########################################################################################################################################################
